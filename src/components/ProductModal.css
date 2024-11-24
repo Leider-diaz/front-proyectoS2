@@ -1,0 +1,136 @@
+/* ProductModal.css */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 90%;
+    display: flex;
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .modal-body {
+    display: flex;
+  }
+  
+  .modal-image img {
+    width: 300px;
+    height: 300px;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+  }
+  
+  .modal-details {
+    margin-left: 20px;
+    flex: 1;
+  }
+  
+  .modal-details h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .category {
+    color: #777;
+    margin: 5px 0;
+  }
+  
+  .price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .tab-button {
+    background: none;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .tab-button.active {
+    border-bottom: 2px solid black;
+  }
+  
+  .description {
+    font-size: 14px;
+    margin: 15px 0;
+    color: #555;
+  }
+  
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  
+  .quantity-controls button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: #eee;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .quantity-controls span {
+    font-size: 16px;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .add-to-cart {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .buy-now {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  

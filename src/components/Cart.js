@@ -10,7 +10,7 @@ const Cart = ({ cart, removeFromCart }) => {
           <div key={product.id} className="cart-item">
             <img
               src={product.image}
-              alt={product.producto.nombre}
+              alt={product.name}
               style={{
                 width: '100px', // Cambia esto al tamaño que prefieras
                 height: '100px',
@@ -18,9 +18,8 @@ const Cart = ({ cart, removeFromCart }) => {
                 marginRight: '10px'
               }}
             />
-            <h3>{product.producto.nombre}</h3>
-            <p>Precio: ${product.producto.precio}</p>
-            <p>cantidad: {product.cantidad}</p>
+            <h3>{product.name}</h3>
+            <p>Precio: ${product.price}</p>
             <button onClick={() => removeFromCart(product.id)}>Quitar del carrito</button>
           </div>
         ))
