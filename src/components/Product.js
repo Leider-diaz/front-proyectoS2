@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Product.css';
+import { realizarPedido } from './service/General-services';
 
 const Product = ({ product, addToCart }) => {
   const [quantity, setQuantity] = useState(0);
@@ -7,6 +8,10 @@ const Product = ({ product, addToCart }) => {
   const handleIncrease = () => setQuantity(quantity + 1);
   const handleDecrease = () => {
     if (quantity > 0) setQuantity(quantity - 1);
+  };
+
+  const pedir = async (product, quantity) => {
+    await realizarPedido(1, product.id, quantity);
   };
 
   return (
@@ -21,7 +26,7 @@ const Product = ({ product, addToCart }) => {
         <button onClick={handleIncrease}>+</button>
       </div>
       <button onClick={() => addToCart(product, quantity)} className="add-to-cart-button">Añadir al Carrito</button>
-      <button className="buy-button">Comprar ahora</button>
+      <button onClick={() => pedir(product, quantity)} className="buy-button">Comprar ahora</button>
     </div>
   );
 };
