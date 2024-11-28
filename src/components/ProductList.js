@@ -3,7 +3,7 @@ import Product from './Product';
 import './ProductList.css'; // Asegúrate de tener un archivo CSS para estilos
 import { obtenerProductos } from './service/General-services';
 
-const ProductList = ({ addToCart }) => {
+const ProductList = ({ addToCart, openModal }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProductos] = useState([]);
 
@@ -34,7 +34,12 @@ const ProductList = ({ addToCart }) => {
       />
       <div className="product-list">
         {filteredProducts.map((product) => (
-          <Product key={product.id} product={product} addToCart={addToCart} />
+          <Product 
+          key={product.id} 
+          product={product} 
+          addToCart={addToCart} 
+          openModal={openModal} // Pasar openModal al componente Product
+          />
         ))}
       </div>
     </div>
