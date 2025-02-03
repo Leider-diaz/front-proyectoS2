@@ -1,35 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './OrderList.css';
+import { obtenerPedidos, obtenerPedidos3A } from './service/General-services';
 
-const orders = [
-  {
-    id: 4,
-    date: "2024-10-29",
-    status: "Registrado",
-    store: "Librería Central",
-    customer_name: "Joan Pedraza",
-    total_price: "150.50",
-    products: [
-      { product_name: "Percy Jackson: El ladrón del rayo", quantity: 1 },
-      { product_name: "Percy Jackson: El mar de los monstruos", quantity: 1 },
-      { product_name: "Percy Jackson: La maldición del titán", quantity: 1 },
-    ],
-  },
-  {
-    id: 5,
-    date: "2024-10-30",
-    status: "Enviado",
-    store: "Librería Online",
-    customer_name: "Ana López",
-    total_price: "300.00",
-    products: [
-      { product_name: "Harry Potter y la piedra filosofal", quantity: 1 },
-      { product_name: "Harry Potter y la cámara secreta", quantity: 2 },
-    ],
-  },
-];
+
 
 const OrderList = () => {
+  const [orders, setPedidos] = useState([]);
+
+
+useEffect(()=>{const res = async ()=>{try {
+  const data = await obtenerPedidos()
+  setPedidos(data)
+  const data3A = await obtenerPedidos3A()
+  orders.concat(data3A)
+} catch (error) {
+  
+}}
+res()
+},[])
   const [expandedOrderId, setExpandedOrderId] = useState(null);
 
   const toggleOrderDetails = (orderId) => {
@@ -47,7 +35,7 @@ const OrderList = () => {
               <p><strong>Estado:</strong> {order.status}</p>
               <p><strong>Tienda:</strong> {order.store}</p>
               <p><strong>Cliente:</strong> {order.customer_name}</p>
-              <p><strong>Total:</strong> {order.total_price} €</p>
+              <p><strong>Total:</strong> $ {order.total_price}</p>
               <button onClick={() => toggleOrderDetails(order.id)} className="view-details-button">
                 {expandedOrderId === order.id ? "Ocultar Detalles" : "Ver Detalles"}
               </button>

@@ -1,12 +1,24 @@
 // CartSidebar.js
 import React from 'react';
 import './CartSidebar.css';
+import { deleteUnProductosCarrito, obtenerProductosCarrito, setUnProductosCarrito } from './service/General-services';
 
-const CartSidebar = ({ isOpen, cart, addToCart, removeFromCart, decreaseQuantity, toggleSidebar }) => {
-  // Calcular subtotal e IVA
-  const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const iva = subtotal * 0.16;
-  const total = subtotal + iva;
+const CartSidebar = ({ isOpen, cart, addToCart, pedirCarrito, removeFromCart, decreaseQuantity, toggleSidebar, setCart}) => {
+
+  const total = cart.reduce((acc, item) => acc + item.producto.precio * item.cantidad, 0);
+
+  const quitar = async (productId) => {
+    await deleteUnProductosCarrito(1, productId);
+    const data = await obtenerProductosCarrito(1);
+    setCart(data);
+  };
+
+  const añadir = async (productId) => {
+    console.log(productId);
+    await setUnProductosCarrito(1, productId);
+    const data = await obtenerProductosCarrito(1);
+    setCart(data);
+  };
 
   return (
     <div className={`cart-sidebar ${isOpen ? 'open' : ''}`}>
@@ -23,9 +35,9 @@ const CartSidebar = ({ isOpen, cart, addToCart, removeFromCart, decreaseQuantity
               <h3>{product.name}</h3>
               <p>${product.price.toFixed(2)} c/u</p>
               <div className="cart-item-controls">
-                <button onClick={() => decreaseQuantity(product.id)}>-</button>
-                <span>{product.quantity}</span>
-                <button onClick={() => addToCart(product)}>+</button>
+                <button onClick={() => quitar(product.idProducto)}>-</button>
+                <span>{product.cantidad}</span>
+                <button onClick={() => añadir(product.idProducto)}>+</button>
                 <button onClick={() => removeFromCart(product.id)} className="remove-btn">🗑️</button>
               </div>
             </div>

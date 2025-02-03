@@ -1,9 +1,21 @@
 // ProductModal.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProductModal.css';
+import { realizarPedido } from './service/General-services';
 
 function ProductModal({ product, isOpen, onClose, addToCart }) {
+  const [quantity, setQuantity] = useState(0);
+  const handleIncrease = () => setQuantity(quantity + 1);
+  const handleDecrease = () => {
+    if (quantity > 0) setQuantity(quantity - 1);
+  };
+  
   if (!isOpen) return null;
+
+
+  const pedir = async (product, quantity) => {
+    await realizarPedido(1, product.id, quantity);
+  };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -12,33 +24,31 @@ function ProductModal({ product, isOpen, onClose, addToCart }) {
         
         <div className="modal-body">
           <div className="modal-image">
-            {/* Imagen del producto, puedes sustituir el src por una imagen válida */}
-            <img src='/images/1.jpg' alt={product.title} />
+          <img src='/images/4.jpg' alt={product.nombre} className="product-image" />
           </div>
           
           <div className="modal-details">
-            <h2>{product.title}</h2>
-            <p className="category">Calzado Deportivo</p>
-            <p className="price">89.99 €</p>
+            <h2>{product.nombre}</h2>
+            <p className="category">{product.tipoProducto.nombre}</p>
+            <p className="price">${product.precio}</p>
             
             <div className="tabs">
               <button className="tab-button active">Descripción</button>
-              <button className="tab-button">Características</button>
             </div>
             <p className="description">
-              Estas zapatillas deportivas Ultra Comfort son perfectas para tus entrenamientos diarios. Diseñadas con tecnología de amortiguación avanzada y materiales transpirables, te proporcionarán el máximo confort y rendimiento durante tus actividades físicas.
+            {product.descripcion}
             </p>
 
-            <div className="quantity-controls">
-              <button>-</button>
-              <span>1</span>
-              <button>+</button>
+            <div className="quantity-control">
+            <button onClick={handleDecrease}>-</button>
+            <span>{quantity}</span>
+            <button onClick={handleIncrease}>+</button>
             </div>
 
             <div className="modal-buttons">
-              <button className="add-to-cart" onClick={() => addToCart(product)}>Añadir al Carrito</button>
-              <button className="buy-now">Comprar Ahora</button>
-            </div>
+              <button className="add-to-cart" onClick={() => addToCart(product, quantity)}>Añadir al Carrito</button>
+              <button onClick={() => pedir(product, quantity)} className="buy-button">Comprar ahora</button>
+              </div>
           </div>
         </div>
       </div>

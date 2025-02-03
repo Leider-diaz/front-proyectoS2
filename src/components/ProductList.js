@@ -39,11 +39,11 @@ const ProductList = ({ addToCart, openModal }) => {
       
       <div className="product-list">
         {filteredProducts.map((product) => (
-          <Product
-            key={product.id}
-            product={product}
-            addToCart={addToCart}
-            openModal={openModal} // Pasar openModal al componente Product
+          <Product 
+          key={product.id} 
+          product={product} 
+          addToCart={addToCart} 
+          openModal={openModal} // Pasar openModal al componente Product
           />
         ))}
       </div>

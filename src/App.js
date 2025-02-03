@@ -4,6 +4,7 @@ import ProductList from './components/ProductList';
 import CartSidebar from './components/CartSidebar';
 import ProductModal from './components/ProductModal';
 import OrderList from './components/OrderList';
+import { deleteProductosCarrito, obtenerProductosCarrito, realizarPedidoCarrito, setProductosCarrito } from './components/service/General-services';
 
 
 function App() {
@@ -82,14 +83,13 @@ const addOrder = (product, quantity) => {
 
   setOrders([...orders, newOrder]); // Actualizar la lista de pedidos
 };
+  
 
-
-
-return (
-  <div className="App">
-    {/* Header */}
-    <header className="App-header">
-      <h1>Mi Tienda Online</h1>
+  return (
+    <div className="App">
+      {/* Header */}
+      <header className="App-header">
+      <h1>COMPUMARKET</h1>
       <div className="header-buttons">
         <button className="btn-productos" onClick={toggleSidebar}>
           Carrito de compras
@@ -102,38 +102,39 @@ return (
         </button>
       </div>
     </header>
+      {/* Contenido principal */}
+      <main>
 
-    {/* Contenido principal */}
-    <main>
       {viewOrders ? (
         <OrderList />
       ) : (
         <section id="productos">
-          <ProductList addToCart={addToCart} openModal={openModal} addOrder={addOrder} />
+          <ProductList addToCart={addToCart} openModal={openModal} />
         </section>
       )}
-    </main>
+        
+      </main>
+      <CartSidebar
+        isOpen={isSidebarOpen}
+        cart={cart}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+        pedirCarrito={pedirCarrito}
+        decreaseQuantity={decreaseQuantity}
+        toggleSidebar={toggleSidebar}
+        setCart={setCart}
+      />
 
-    {/* Sidebar del carrito */}
-    <CartSidebar
-      isOpen={isSidebarOpen}
-      cart={cart}
-      addToCart={addToCart}
-      removeFromCart={removeFromCart}
-      decreaseQuantity={decreaseQuantity}
-      toggleSidebar={toggleSidebar}
-    />
-
-    {/* Modal del producto */}
+      {/* Modal del producto */}
     <ProductModal
       product={selectedProduct}
       isOpen={isModalOpen}
       onClose={closeModal}
       addToCart={addToCart}
     />
-  </div>
-);
-
+    </div>
+    
+  );
 }
 
 export default App;
